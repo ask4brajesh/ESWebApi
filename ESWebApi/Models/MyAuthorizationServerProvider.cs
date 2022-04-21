@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 using Npgsql;
 using System.Configuration;
 using System.Data;
+using NLog;
 
 namespace ESWebApi.Models
 {
+
     public class MyAuthorizationServerProvider: OAuthAuthorizationServerProvider
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -27,7 +30,8 @@ namespace ESWebApi.Models
                 {
                     context.SetError("invalid_grant", "Provided username and password is incorrect" + user.emailid);
                     return;
-                }
+}
+                logger.Info(user.username + " generated token " + Environment.NewLine + DateTime.Now);
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 //identity.AddClaim(new Claim(ClaimTypes.Role, user.UserRoles));
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.username));

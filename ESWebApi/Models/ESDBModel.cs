@@ -77,12 +77,18 @@ namespace ESWebApi.Models
         public string name { get; set; }
     }
 
+    public class sectionname
+    {
+        // public int id { get; set; }
+        public string name { get; set; }
+    }
+
     public class FeederName
     {
         public int id { get; set; }
         public string name { get; set; }
-
         public string code { get; set; }
+        public string status { get; set; }
     }
 
     public class AssignTask
@@ -145,6 +151,10 @@ namespace ESWebApi.Models
         public double x { get; set; }
         public double y { get; set; }
         public string town { get; set; }
+        public string is_shared { get; set; }
+        public string no_str_lig { get; set; }
+        public string cro_arm_type { get; set; }
+
     }
 
     public class FeatureType
@@ -575,13 +585,74 @@ namespace ESWebApi.Models
     public class Building
     {
         public string nin_id { get; set; }
-        public string buildingName { get; set; }
-        public string buildingType { get; set; }
-        public string town { get; set; }
         public string substaion_name { get; set; }
         public string buildingGeomString { get; set; }
+        public string bld_name { get; set; }
+        public string address { get; set; }
+        public string bld_type { get; set; }
+        public string bld_num { get; set; }
+        public string bld_r_num { get; set; }
+        public string city { get; set; }
+        public string con_status { get; set; }
+        public string dist { get; set; }
+        public string no_of_conn { get; set; }
+        public string no_if_flat { get; set; }
+        public string no_of_floor { get; set; }
+        public string no_of_shop { get; set; }
+        public string pincode { get; set; }
+        public string soc_name { get; set; }
+        public string sub_loc { get; set; }
+
+        public string createdBy { get; set; }
+        public string createdDate { get; set; }
 
     }
+
+    public class consumer
+    {
+        public string nin_id { get; set; }
+        public string bld_id { get; set; }
+
+        public string dtr_name { get; set; }
+        public string substation_name { get; set; }
+        public string cus_no { get; set; }
+        public string cus_name { get; set; }
+        public string fat_name { get; set; }
+        public string occ_name { get; set; }
+        public string tower_no { get; set; }
+        public string bld_name { get; set; }
+        public string bloc_no { get; set; }
+        public string sec_name { get; set; }
+        public string loc_name { get; set; }
+        public string rural { get; set; }
+        public string city_name { get; set; }
+        public string pincode { get; set; }
+        public string san_load { get; set; }
+        public string category { get; set; }
+        public string sup_volt { get; set; }
+        public string no_of_phase { get; set; }
+        public string con_status { get; set; }
+        public string met_no { get; set; }
+        public string dtr_id { get; set; }
+        public string fdr_name { get; set; }
+        public string stat_name { get; set; }
+        public string pole_id { get; set; }
+        public string left_cus_no { get; set; }
+        public string met_lo { get; set; }
+        public string hig_mount { get; set; }
+        public string view_glass { get; set; }
+        public string met_type { get; set; }
+        public string make_class { get; set; }
+        public string seal_no { get; set; }
+        public string seal { get; set; }
+        public string pole_multi_fdr { get; set; }
+        public string x { get; set; }
+        public string y { get; set; }
+
+        public string createdBy { get; set; }
+        public string createdDate { get; set; }
+    }
+
     public class app_version
     {
         public string app_type { get; set; }
@@ -614,6 +685,7 @@ namespace ESWebApi.Models
         public string dtc_count { get; set; }
         public string ht_length { get; set; }
         public string con_count { get; set; }
+        public string status { get; set; }
     }
 
 
@@ -622,6 +694,7 @@ namespace ESWebApi.Models
         public string feedername { get; set; }
         public string feedertype { get; set; }
         public string town { get; set; }
+        public string status { get; set; }
     }
 
     public class dtcgeom
@@ -705,4 +778,29 @@ namespace ESWebApi.Models
         public string to_y { get; set; }
 
     }
+
+    public class usertask {
+        public string userid { get; set; }
+        public string town { get; set; }
+        public string substation_11 { get; set; }
+        public string substation_33 { get; set; }
+        public string surveytype { get; set; }
+        public string feeder_33 { get; set; }
+        public string feeder_11 { get; set; }
+        public string section_name { get; set; }
+        public string dtr_name { get; set; }
+        public string dtr_nin { get; set; }
+        public string surveystatus { get; set; }
+        public string feeder_code { get; set; }
+    }
+
+    public class dtr_master {       
+    public string dtc_name { get; set; }
+        public string capacity { get; set; }
+
+    }
+
+    //public class usermaster { 
+    
+    //}
 }

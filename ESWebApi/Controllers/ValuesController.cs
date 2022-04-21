@@ -23,7 +23,7 @@ namespace ESWebApi.Controllers
         public IHttpActionResult GetUserList()
         {
             var identity = (ClaimsIdentity)User.Identity;
-            List<User> user = model.GetUserList();
+            dynamic user = model.GetUserList();
             ResponceData<dynamic> responce = new ResponceData<dynamic>();
             if (user.Count > 0)
             {
@@ -174,7 +174,7 @@ namespace ESWebApi.Controllers
 
 
         [Route("api/msit/getgeojson")]
-        public IHttpActionResult Getgeojson( string substaionname, string feedername, string surveytype, string town, string dt_name)
+        public IHttpActionResult Getgeojson(string substaionname, string feedername, string surveytype, string town, string dt_name)
         {
             var identity = (ClaimsIdentity)User.Identity;
             var geojson = model.GetGeojsonAsync(substaionname, feedername, surveytype, town, dt_name);
@@ -197,7 +197,7 @@ namespace ESWebApi.Controllers
         [Route("api/msit/getsectionlist")]
         public IHttpActionResult GetSectionList()
         {
-            var list = model.GetFdrDetailsbyTown("BALASORE");
+            // var list = model.GetFdrDetailsbyTown("BALASORE");
             var identity = (ClaimsIdentity)User.Identity;
             var slist = model.GetSectionList();
             ResponceData<dynamic> responce = new ResponceData<dynamic>();
@@ -243,7 +243,7 @@ namespace ESWebApi.Controllers
 
 
             var identity = (ClaimsIdentity)User.Identity;
-            var slist = model.getNinIdByFeature(substionName, feederName, surveryType, featureType,dtcname,con_to,curr_pole);
+            var slist = model.getNinIdByFeature(substionName, feederName, surveryType, featureType, dtcname, con_to, curr_pole);
             ResponceData<dynamic> responce = new ResponceData<dynamic>();
             if (slist != null)
             {
@@ -276,7 +276,7 @@ namespace ESWebApi.Controllers
                     responce.Data = slist;
                     responce.message = "success";
                     responce.status = ResultCodeType.SUCCESS;
-                }               
+                }
             }
             else
             {
@@ -286,6 +286,7 @@ namespace ESWebApi.Controllers
             return Ok(responce);
         }
 
+        [HttpGet]
         [Route("api/msit/updatestatus")]
         public IHttpActionResult UpdateStatus(string substionName, string feederName, string surveryType, string status)
         {
@@ -436,10 +437,10 @@ namespace ESWebApi.Controllers
 
 
         [Route("api/msit/getextentbytown")]
-        public IHttpActionResult GetExtentByTown(string townname="NA")
+        public IHttpActionResult GetExtentByTown(string townname = "NA", string fdrName = "NA")
         {
             var identity = (ClaimsIdentity)User.Identity;
-            var slist = model.GetExtentByTown(townname);
+            var slist = model.GetExtentByTown(townname, fdrName);
             ResponceData<dynamic> responce = new ResponceData<dynamic>();
             if (slist != null)
             {
@@ -461,7 +462,7 @@ namespace ESWebApi.Controllers
         public IHttpActionResult GetdtcDetailsbyTownandfdr(string town, string fdrname, string surtyp)
         {
             var identity = (ClaimsIdentity)User.Identity;
-            var slist = model.GetdtcDetailsbyTownandfdr(town,fdrname,surtyp);
+            var slist = model.GetdtcDetailsbyTownandfdr(town, fdrname, surtyp);
             ResponceData<dynamic> responce = new ResponceData<dynamic>();
             if (slist != null)
             {
@@ -504,6 +505,108 @@ namespace ESWebApi.Controllers
         {
             var identity = (ClaimsIdentity)User.Identity;
             var slist = model.getDtcGeom(dtcname);
+            ResponceData<dynamic> responce = new ResponceData<dynamic>();
+            if (slist != null)
+            {
+                responce.Data = slist;
+                responce.message = "success";
+                responce.status = ResultCodeType.SUCCESS;
+            }
+            else
+            {
+                responce.message = "failed";
+                responce.status = ResultCodeType.FAIL;
+            }
+            return Ok(responce);
+        }
+
+        [Route("api/msit/createConsumerAndLtLine")]
+        public IHttpActionResult createConsumerAndLtLine(consumer consumer)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var slist = model.createConsumerAndLtLine(consumer);
+            ResponceData<dynamic> responce = new ResponceData<dynamic>();
+            if (slist != false)
+            {
+                responce.Data = slist;
+                responce.message = "success";
+                responce.status = ResultCodeType.SUCCESS;
+            }
+            else
+            {
+                responce.message = "failed";
+                responce.status = ResultCodeType.FAIL;
+            }
+            return Ok(responce);
+        }
+
+
+        [Route("api/msit/GetBuildingIdByConsumer")]
+        public IHttpActionResult GetBuildingIdByConsumer(string x, string y  )
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var slist = model.GetBuildingIdByConsumer(x,y);
+            ResponceData<dynamic> responce = new ResponceData<dynamic>();
+            if (slist != null)
+            {
+                responce.Data = slist;
+                responce.message = "success";
+                responce.status = ResultCodeType.SUCCESS;
+            }
+            else
+            {
+                responce.message = "failed";
+                responce.status = ResultCodeType.FAIL;
+            }
+            return Ok(responce);
+        }
+
+        [Route("api/msit/AssignUserTask")]
+        public IHttpActionResult AssignUserTask(usertask usertask)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var slist = model.AssignUserTask(usertask);
+            ResponceData<dynamic> responce = new ResponceData<dynamic>();
+            if (slist != false)
+            {
+                responce.Data = slist;
+                responce.message = "success";
+                responce.status = ResultCodeType.SUCCESS;
+            }
+            else
+            {
+                responce.message = "failed";
+                responce.status = ResultCodeType.FAIL;
+            }
+            return Ok(responce);
+        }
+
+        [Route("api/msit/GetSecNameList")]
+        public IHttpActionResult GetSecNameList(string town)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var slist = model.GetSecNameList(town);
+            ResponceData<dynamic> responce = new ResponceData<dynamic>();
+            if (slist != null)
+            {
+                responce.Data = slist;
+                responce.message = "success";
+                responce.status = ResultCodeType.SUCCESS;
+            }
+            else
+            {
+                responce.message = "failed";
+                responce.status = ResultCodeType.FAIL;
+            }
+            return Ok(responce);
+        }
+
+
+        [Route("api/msit/GetDtrList")]
+        public IHttpActionResult GetDtrList(string substionName, string feederName)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var slist = model.GetDtrList(substionName, feederName);
             ResponceData<dynamic> responce = new ResponceData<dynamic>();
             if (slist != null)
             {
