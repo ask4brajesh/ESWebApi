@@ -603,6 +603,7 @@ namespace ESWebApi.Controllers
 
 
         [Route("api/msit/GetDtrList")]
+        
         public IHttpActionResult GetDtrList(string substionName, string feederName)
         {
             var identity = (ClaimsIdentity)User.Identity;

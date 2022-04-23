@@ -353,6 +353,9 @@ namespace ESWebApi.Models
         public string x { get; set; }
         public string y { get; set; }
 
+        public string image { get; set; }
+        public string image_ext { get; set; }
+
     }
 
     public class rmu

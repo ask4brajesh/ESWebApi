@@ -823,9 +823,14 @@ namespace ESWebApi.Models
             }
             else if (featuretable == "dis_transformer")
             {
+
                 dis_transformer data1 = JsonConvert.DeserializeObject<dis_transformer>(data);
+                if (data1.survey_type == "11") {
+                    bool tempDtName = UpdateDtrStatus(data1.fdr_name, data1.substation_name, data1.dt_name);
+                }
+                
                 ninid = data1.nin_id;
-                sql1 = string.Format("INSERT INTO public.dis_transformer( nin_id, con_to_pol, earthing, ear_type, dtr_code, st_name, status, man_name, man_s_no, man_date, dtr_name, fencing, type, sub_type, usage, capacity, hi_v_si_v, lo_v_si_v, cor_typ, vec_grp, per_imp, lv_fdr_pr, hv_pro, phase, lv_pro, own_by, no_of_lt_p, no_oflt_fd, met_no, mod_num, pre_of_tap, cur_tap_po, tap_ch_typ, min_tap, max_tap, tp_ch_m_nm, tp_ch_s_no, tr_nm_phot, geom, sur_remark, create_by, create_date, substation_name, survey_type, sec_name, town,fdr_name)VALUES('" + data1.nin_id + "','" + data1.con_to_pol + "','" + data1.earthing + "', '" + data1.ear_type + "', '" + data1.dtr_code + "', '" + data1.st_name + "', '" + data1.status + "', '" + data1.man_name + "', '" + data1.man_s_no + "', " + validateDate(data1.man_date) + ", '" + data1.dt_name + "', '" + data1.fencing + "', '" + data1.type + "', '" + data1.sub_type + "', '" + data1.usage + "', '" + data1.capacity + "', '" + data1.hi_v_si_v + "', '" + data1.lo_v_si_v + "', '" + data1.cor_typ + "', '" + data1.vec_grp + "', '" + data1.per_imp + "', '" + data1.lv_fdr_pr + "', '" + data1.hv_pro + "', '" + data1.phase + "', '" + data1.lv_pro + "', '" + data1.own_by + "', '" + data1.no_of_lt_p + "', '" + data1.no_oflt_fd + "', '" + data1.met_no + "', '" + data1.mod_num + "', '" + data1.pre_of_tap + "', '" + data1.cur_tap_po + "', '" + data1.tap_ch_typ + "', '" + data1.min_tap + "', '" + data1.max_tap + "', '" + data1.tp_ch_m_nm + "', '" + data1.tp_ch_s_no + "', '" + data1.tr_nm_phot + "',ST_SetSRID(ST_MakePoint(" + data1.x + "," + data1.y + "),4326), '" + data1.sur_remark + "', '" + data1.create_by + "', '" + data1.create_date + "', '" + data1.substation_name + "', '" + data1.survey_type + "', '" + data1.sec_name + "','" + data1.town + "', '" + data1.fdr_name + "');");
+                sql1 = string.Format("INSERT INTO public.dis_transformer( nin_id, con_to_pol, earthing, ear_type, dtr_code, st_name, status, man_name, man_s_no, man_date, dtr_name, fencing, type, sub_type, usage, capacity, hi_v_si_v, lo_v_si_v, cor_typ, vec_grp, per_imp, lv_fdr_pr, hv_pro, phase, lv_pro, own_by, no_of_lt_p, no_oflt_fd, met_no, mod_num, pre_of_tap, cur_tap_po, tap_ch_typ, min_tap, max_tap, tp_ch_m_nm, tp_ch_s_no, tr_nm_phot, geom, sur_remark, create_by, create_date, substation_name, survey_type, sec_name, town,fdr_name,image,image_ext)VALUES('" + data1.nin_id + "','" + data1.con_to_pol + "','" + data1.earthing + "', '" + data1.ear_type + "', '" + data1.dtr_code + "', '" + data1.st_name + "', '" + data1.status + "', '" + data1.man_name + "', '" + data1.man_s_no + "', " + validateDate(data1.man_date) + ", '" + data1.dt_name + "', '" + data1.fencing + "', '" + data1.type + "', '" + data1.sub_type + "', '" + data1.usage + "', '" + data1.capacity + "', '" + data1.hi_v_si_v + "', '" + data1.lo_v_si_v + "', '" + data1.cor_typ + "', '" + data1.vec_grp + "', '" + data1.per_imp + "', '" + data1.lv_fdr_pr + "', '" + data1.hv_pro + "', '" + data1.phase + "', '" + data1.lv_pro + "', '" + data1.own_by + "', '" + data1.no_of_lt_p + "', '" + data1.no_oflt_fd + "', '" + data1.met_no + "', '" + data1.mod_num + "', '" + data1.pre_of_tap + "', '" + data1.cur_tap_po + "', '" + data1.tap_ch_typ + "', '" + data1.min_tap + "', '" + data1.max_tap + "', '" + data1.tp_ch_m_nm + "', '" + data1.tp_ch_s_no + "', '" + data1.tr_nm_phot + "',ST_SetSRID(ST_MakePoint(" + data1.x + "," + data1.y + "),4326), '" + data1.sur_remark + "', '" + data1.create_by + "', '" + data1.create_date + "', '" + data1.substation_name + "', '" + data1.survey_type + "', '" + data1.sec_name + "','" + data1.town + "', '" + data1.fdr_name + "','" + data1.image + "', '" + data1.image_ext + "');");
             }
             else if (featuretable == "dis_box")
             {
@@ -1244,7 +1249,7 @@ namespace ESWebApi.Models
                     else if (featureType == "dis_box") { ninIdPrx = "DB"; }
                     else if (featureType == "tower_33") { ninIdPrx = "TW"; }
 
-                    string sql = "select nin_id from " + featureType + " where survey_type='" + surveryType + "' order by id desc limit 1";
+                    string sql = "select nin_id from " + featureType + "  WHERE fdr_name='"+feederName+"' AND substation_name='"+substionName+"' order by id desc limit 1";
 
                     using (NpgsqlConnection connection = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["NpgsqlConnectionString"].ConnectionString))
                     {
@@ -1354,7 +1359,7 @@ namespace ESWebApi.Models
             }
             else
             {
-                sql = "Select count (*) from " + featureType + " where substation_name ='" + substionName + "' and fdr_name  ='" + feederName + "' and survey_type ='" + surveryType + "'";
+                sql = "Select count (*) from " + featureType + " where substation_name ='" + substionName + "' and fdr_name  ='" + feederName + "'";
             }
 
 
@@ -1680,7 +1685,7 @@ namespace ESWebApi.Models
                     dtc.dtcninid = Convert.ToString(data["nin_id"]);
                     dtc.dtcname = Convert.ToString(data["dtr_name"]);
                     dtc.status = Convert.ToString(data["sur_sta_lt"]);
-                    dtc.lt_len = Convert.ToString(1111);
+                    dtc.lt_len = Convert.ToString(len1);
                     dtc.con_count = Convert.ToString(0);
                     dtclist.Add(dtc);
                 }
@@ -1961,7 +1966,7 @@ namespace ESWebApi.Models
             try
             {
                 dtr_s = new List<dtr_master>();
-                DataRow[] datas = DataSet.Tables["dtr_master"].Select("fdr_name_11='" + feederName + "' AND pss_name='" + substionName + "'");
+                DataRow[] datas = DataSet.Tables["dtr_master"].Select("fdr_name_11='" + feederName + "' AND pss_name='" + substionName + "' AND is_capture='N'");
                 dtr_master dtr_ = null;
                 foreach (DataRow dr in datas) {
                     dtr_ = new dtr_master();
@@ -1978,6 +1983,42 @@ namespace ESWebApi.Models
             return dtr_m;
         }
 
+
+        public bool UpdateDtrStatus(string feederName, string substationName, string dtcName) {
+            bool result = false;
+            try
+            {
+               string sql = "UPDATE dtr_master  SET  is_capture ='Y' WHERE pss_name='" + substationName + "'AND fdr_name_11='"+feederName+"' AND dtc_name='" +dtcName + "' ; ";
+
+                using (NpgsqlConnection connection = new NpgsqlConnection())
+                {
+                    connection.ConnectionString = ConfigurationManager.ConnectionStrings["NpgsqlConnectionString"].ToString();
+                    connection.Open();
+                    NpgsqlCommand cmd = new NpgsqlCommand(sql, connection);
+                    int i = cmd.ExecuteNonQuery();
+
+                    cmd = new NpgsqlCommand(sql, connection);
+                    i = cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                    connection.Close();
+                    if (i >= 1)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+
+                }
+
+            }
+            catch (Exception ex) {
+                result = false;
+                logger.Error("Method : UpdateDtrStatus : ", ex.Message);
+            }
+            return result;
+        }
 
     }
 }
